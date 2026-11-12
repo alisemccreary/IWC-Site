@@ -1,0 +1,31 @@
+/* motion.css: pairs with motion.js (Anime.js 4.5.0). From the "animejs" skill.
+ *
+ * Put this in <head> BEFORE the stylesheet link, so hidden states only apply
+ * when JS is running:
+ *   <script>document.documentElement.classList.add('js-motion')</script>
+ */
+
+/* Starting states: hidden only when JS is on. */
+.js-motion [data-anim="fade-up"],
+.js-motion [data-anim="stagger"] > *,
+.js-motion [data-anim="split"],
+.js-motion [data-anim="scramble"],
+.js-motion [data-anim="draw"] {
+  opacity: 0;
+}
+
+/* Failsafe: if motion.js never loads (CDN blocked), reveal after 2.5s. */
+.js-motion:not(.motion-ready) [data-anim="fade-up"],
+.js-motion:not(.motion-ready) [data-anim="stagger"] > *,
+.js-motion:not(.motion-ready) [data-anim="split"],
+.js-motion:not(.motion-ready) [data-anim="scramble"],
+.js-motion:not(.motion-ready) [data-anim="draw"] {
+  animation: motion-failsafe 0s 2.5s forwards;
+}
+@keyframes motion-failsafe { to { opacity: 1; } }
+
+/* Counters: no width jump while digits change. */
+[data-count] { font-variant-numeric: tabular-nums; }
+
+/* Split headlines: keep words on the baseline while they rise. */
+[data-anim="split"] { overflow-wrap: break-word; }
