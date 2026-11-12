@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LTL Trucking Waste Management and Invoice Auditing | IWC</title>
-<meta name="description" content="Waste brokerage for LTL terminals: one contact for every location, audited hauler invoices, one monthly report, and compactors that cut pickups.">
+<title>Waste Management for LTL Terminals | IWC</title>
+<meta name="description" content="Family-owned waste management consulting for LTL carriers. We handle vendor agreements, waste audits and service at every terminal so you can focus on your business.">
 <meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Integrated Waste Consulting">
-<meta property="og:title" content="LTL Trucking Waste Management and Invoice Auditing | IWC">
-<meta property="og:description" content="Waste brokerage for LTL terminals: one contact for every location, audited hauler invoices, one monthly report, and compactors that cut pickups.">
-<meta property="og:image" content="assets/sign.jpg">
+<meta property="og:title" content="Waste Management for LTL Terminals | IWC">
+<meta property="og:description" content="Family-owned waste management consulting for LTL carriers. We handle vendor agreements, waste audits and service at every terminal so you can focus on your business.">
+<meta property="og:image" content="assets/hero-drone-poster.jpg">
 <script>document.documentElement.classList.add('js-motion')</script>
 <link rel="preload" href="fonts/Strata.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/motion.css">
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v3 · LTL Waste Management page · Footage from IWC's brand and walk-through videos by Luke Price. Dashed boxes wait on IWC.</div>
+<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v4 · Waste Management page · Footage from IWC's brand and training videos by Luke Price. Dashed boxes wait on IWC.</div>
 
 <!-- Synced pattern: iwc/header -->
 <header class="nav" id="nav">
@@ -29,14 +29,20 @@
       <span class="brand-name">IWC<small>Integrated Waste Consulting</small></span>
     </a>
     <ul class="links" id="links">
-      <li><a href="ltl-waste-management.html" aria-current="page">LTL Waste Management</a></li>
-      <li><a href="equipment.html">Equipment</a></li>
+      <li><a href="waste-management.html" aria-current="page">Waste Management</a></li>
+      <li><a href="consulting.html">Consulting</a></li>
+      <li class="has-sub"><a href="equipment-rentals.html">Equipment</a><button class="sub-btn" type="button" aria-expanded="false" aria-label="Open the Equipment menu"><span aria-hidden="true">&#9662;</span></button>
+        <ul class="sub" aria-label="Equipment pages">
+          <li><a href="equipment-rentals.html">Equipment Rentals</a></li>
+          <li><a href="equipment-sales.html">Equipment Sales</a></li>
+          <li><a href="equipment-rentals.html#training">Compactor training video</a></li>
+        </ul></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="contact-us.html">Contact</a></li>
     </ul>
     <div class="nav-r">
       <a class="phone" href="tel:+16624164888">662-416-4888</a>
-      <a class="btn btn-sm" href="contact.html">Get a savings review</a>
+      <a class="btn btn-sm" href="contact-us.html">Get a savings review</a>
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links">Menu</button>
     </div>
   </nav>
@@ -48,11 +54,11 @@
 <section class="page-hero" data-pattern="iwc/page-hero" aria-labelledby="h1">
   <div class="wrap ph-grid">
     <div class="ph-copy">
-      <ol class="crumbs" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">LTL Waste Management</li></ol>
-      <h1 id="h1">LTL waste management for every terminal.</h1>
-      <p class="lede">IWC is the waste broker built for LTL carriers. One contact for every location, every hauler bill checked, and compactors that cut the number of pickups you pay for.</p>
+      <ol class="crumbs" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">Waste Management</li></ol>
+      <h1 id="h1">Waste management for LTL terminals.</h1>
+      <p class="lede">Integrated Waste Consulting has been helping companies save money on waste services and trash equipment rentals since 2013. We provide sustainable, cost-effective waste management solutions that meet the unique needs of your business.</p>
       <div class="ctas">
-        <a class="btn" href="contact.html">Get a savings review</a>
+        <a class="btn" href="contact-us.html">Get a savings review</a>
         <a class="btn btn-line" href="#savings">Try the calculator</a>
       </div>
     </div>
@@ -63,34 +69,48 @@
   </div>
 </section>
 
-<!-- Pattern: iwc/brokerage-flow -->
-<section id="brokerage" data-pattern="iwc/brokerage-flow" aria-labelledby="flow-h">
-  <div class="wrap">
-    <div class="head-split">
-      <div>
-        <p class="eyebrow" data-anim="fade-up">How brokerage works</p>
-        <h2 class="h2" id="flow-h" data-anim="fade-up">You call one number. We handle the rest.</h2>
-      </div>
-      <p class="lede" data-anim="fade-up">Most carriers deal with a different hauler, contract and bill at every terminal. IWC stands in the middle so your team only deals with us.</p>
+<!-- Pattern: iwc/story (save your business money) -->
+<section data-pattern="iwc/story" aria-labelledby="save-h">
+  <div class="wrap two-col">
+    <div>
+      <p class="eyebrow" data-anim="fade-up">Family-owned consulting</p>
+      <h2 class="h2" id="save-h" data-anim="fade-up">Save your business money today.</h2>
     </div>
-    <div class="flow light" data-anim="stagger" data-step="90">
+    <div class="prose" data-anim="fade-up" style="margin-top:12px">
+      <p>As a family-owned waste management consulting company, our team is driven by finding innovative solutions for businesses that want to reduce their monthly waste spending. We understand the complexities of waste removal, and we handle the communication and negotiation of vendor agreements for you.</p>
+      <p>Let us handle the complexities of waste management so you can focus on growing your business. It is time to start saving on your waste removal costs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pattern: iwc/brokerage-flow -->
+<section class="ink" id="brokerage" data-pattern="iwc/brokerage-flow" aria-labelledby="flow-h">
+  <div class="wrap">
+    <div class="head-split on-dark">
+      <div>
+        <p class="eyebrow" data-anim="fade-up">How it works</p>
+        <h2 class="h2" id="flow-h" data-anim="fade-up">One point of contact for every terminal.</h2>
+      </div>
+      <p class="lede" data-anim="fade-up">Most carriers deal with a different hauler, contract and bill at every terminal. IWC sits in the middle so your team deals with one company.</p>
+    </div>
+    <div class="flow" data-anim="stagger" data-step="90">
       <div class="flow-box">
         <p class="label">Your side</p>
-        <h3>Every terminal</h3>
-        <p>Dozens or hundreds of locations, each with its own trash needs.</p>
+        <h3>Your terminals</h3>
+        <p>Dozens or hundreds of locations, each with its own trash and recycling needs.</p>
         <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-box hub">
         <p class="label">In the middle</p>
         <h3>IWC</h3>
-        <p>One contact, one contract, one monthly invoice. We set up service, solve problems and audit every bill.</p>
+        <p>We set up service, negotiate the vendor agreements, audit the invoices and report back to you.</p>
       </div>
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-box">
         <p class="label">Local side</p>
-        <h3>The right hauler</h3>
-        <p>We find and manage the hauler in each market and hold them to the service you are paying for.</p>
+        <h3>The haulers</h3>
+        <p>We manage the hauler in each market so your team does not have to.</p>
         <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       </div>
     </div>
@@ -98,49 +118,50 @@
 </section>
 
 <!-- Pattern: iwc/feature-rows -->
-<section data-pattern="iwc/feature-rows" aria-labelledby="svc-h">
+<section data-pattern="iwc/feature-rows" aria-labelledby="ws-h">
   <div class="wrap">
-    <p class="eyebrow" data-anim="fade-up">What is included</p>
-    <h2 class="h2" id="svc-h" data-anim="fade-up">Everything your terminals need.</h2>
+    <p class="eyebrow" data-anim="fade-up">Waste services</p>
+    <h2 class="h2" id="ws-h" data-anim="fade-up">From commercial trash pickup to recycling, we have you covered.</h2>
     <div class="rows">
-      <div class="row" id="auditing">
-        <div class="row-media" data-anim="fade-up"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-audit-poster.jpg" aria-label="A hauler invoice being checked line by line on screen"><source src="assets/clip-audit.mp4" type="video/mp4"></video></div>
+      <div class="row" id="pickup">
+        <div class="row-media" data-anim="fade-up"><img src="assets/aerial-yard.jpg" alt="Aerial view of trailers and containers at an LTL terminal" loading="lazy"></div>
         <div data-anim="fade-up">
           <p class="n">01</p>
-          <h3 class="h3">Invoice auditing</h3>
-          <p class="lede">Waste bills are easy to get wrong. We check every hauler invoice against the service you agreed to before you pay it.</p>
+          <h3 class="h3">A customized plan for every terminal</h3>
+          <p class="lede">We offer a variety of waste services to meet the needs of your business. Our team works with you to create a customized waste management plan that meets your specific needs at each location.</p>
           <ul class="checks">
-            <li>Missed or extra pickups flagged</li>
-            <li>Fuel and environmental fees reviewed</li>
-            <li>Credits chased down for you</li>
+            <li>Commercial trash pickup</li>
+            <li>Recycling where it makes sense</li>
+            <li>One plan across every terminal</li>
           </ul>
         </div>
       </div>
-      <div class="row" id="reporting">
-        <div class="row-media" data-anim="fade-up"><img src="assets/reporting.jpg" alt="A monthly waste report on a computer screen" loading="lazy"></div>
+      <div class="row" id="audits">
+        <div class="row-media" data-anim="fade-up"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-audit-poster.jpg" aria-label="A hauler invoice being checked line by line on screen"><source src="assets/clip-audit.mp4" type="video/mp4"></video></div>
         <div data-anim="fade-up">
           <p class="n">02</p>
-          <h3 class="h3">One invoice and one report</h3>
-          <p class="lede">Every terminal rolls into one monthly invoice, with a report that shows service and cost by location.</p>
+          <h3 class="h3">Waste audits and recommendations</h3>
+          <p class="lede">We conduct thorough waste audits to analyze your current waste generation and disposal processes. Our experts identify areas for improvement and provide actionable recommendations to reduce waste and streamline your operations.</p>
           <ul class="checks">
-            <li>One bill for accounting to process</li>
-            <li>Cost by terminal, side by side</li>
-            <li>Easy to spot a location that is off</li>
+            <li>Current service and cost at each terminal</li>
+            <li>Clear invoice audit reporting</li>
+            <li>Practical, cost-effective recommendations</li>
           </ul>
+          <a class="tlink" href="consulting.html" style="margin-top:24px">What consulting includes</a>
         </div>
       </div>
       <div class="row" id="compactors">
         <div class="row-media" data-anim="fade-up"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-compactor-load-poster.jpg" aria-label="Pallets being loaded into a compactor at a terminal dock"><source src="assets/clip-compactor-load.mp4" type="video/mp4"></video></div>
         <div data-anim="fade-up">
           <p class="n">03</p>
-          <h3 class="h3">Compactors that cut pickups</h3>
-          <p class="lede">At busy terminals the biggest cost is how often the truck comes. A compactor packs the same trash into far fewer hauls.</p>
+          <h3 class="h3">Equipment-driven savings</h3>
+          <p class="lede">At busy terminals the biggest cost is how often the truck comes. We survey each property and place the right equipment, so the same trash leaves in far fewer hauls.</p>
           <ul class="checks">
-            <li>Rented, installed and serviced by IWC</li>
-            <li>Sized to each terminal's volume</li>
-            <li>Also available to buy</li>
+            <li>Property-specific surveys for each location</li>
+            <li>Compactors where volume is high</li>
+            <li>Rented, delivered and maintained by IWC</li>
           </ul>
-          <a class="tlink" href="equipment.html" style="margin-top:24px">See compactors</a>
+          <a class="tlink" href="equipment-rentals.html" style="margin-top:24px">See equipment rentals</a>
         </div>
       </div>
     </div>
@@ -155,7 +176,7 @@
         <p class="eyebrow" data-anim="fade-up">The compactor savings model</p>
         <h2 class="h2" id="model-h" data-anim="fade-up">Fewer hauls for the same trash.</h2>
       </div>
-      <p class="lede" data-anim="fade-up">You pay for every pickup. A compactor squeezes trash down so each haul carries much more, and the hauler comes far less often.</p>
+      <p class="lede" data-anim="fade-up">You pay for every pickup. A compactor packs the trash down so each haul carries much more, and the hauler comes far less often.</p>
     </div>
     <div class="ratio" data-anim="fade-up">
       <div>
@@ -221,41 +242,12 @@
         <div class="big" id="big">Save about $820 a month</div>
         <p class="per" id="per">per terminal.</p>
       </div>
-      <a class="btn" href="contact.html">Get a free savings review</a>
+      <a class="btn" href="contact-us.html">Get a free savings review</a>
       <p class="assume"><b>Estimate only.</b> One compactor haul replaces about 4 to 5 open top hauls, so this uses the low end (4). Same price per haul, plus a sample rental of $379 a month until IWC confirms its rate.</p>
     </form>
   </div>
 </section>
 
-
-<!-- Pattern: iwc/steps -->
-<section aria-labelledby="how-h" data-pattern="iwc/steps">
-  <div class="wrap">
-    <p class="eyebrow" data-anim="fade-up">Getting started</p>
-    <h2 class="h2" id="how-h" data-anim="fade-up">Three steps. One invoice.</h2>
-    <ol class="steps" data-anim="stagger" data-step="80">
-      <li class="step">
-        <div class="media"><img src="assets/truck-gate.jpg" alt="A trailer pulling through a terminal gate" loading="lazy"></div>
-        <div class="n" aria-hidden="true">01</div>
-        <h3>We look at every terminal</h3>
-        <p>Send us your current invoices. We map service, pickups and cost at each location.</p>
-      </li>
-      <li class="step">
-        <div class="media"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-compactor-load-poster.jpg" aria-label="A forklift tipping pallets into a compactor charge box at a terminal dock"><source src="assets/clip-compactor-load.mp4" type="video/mp4"></video></div>
-        <div class="n" aria-hidden="true">02</div>
-        <h3>We place the right equipment</h3>
-        <p>Compactors where volume is high, the right container everywhere else. We handle install.</p>
-      </li>
-      <li class="step">
-        <div class="media"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-audit-poster.jpg" aria-label="A hauler invoice being reviewed on screen in the IWC office"><source src="assets/clip-audit.mp4" type="video/mp4"></video></div>
-        <div class="n" aria-hidden="true">03</div>
-        <h3>You get one invoice + report</h3>
-        <p>Every terminal, every hauler, one bill. We audit it first and flag anything off.</p>
-      </li>
-    </ol>
-
-  </div>
-</section>
 
 <!-- Pattern: iwc/faq -->
 <section class="paper" data-pattern="iwc/faq" aria-labelledby="faq-h">
@@ -267,24 +259,24 @@
     </div>
     <div class="faq" data-anim="fade-up">
       <details open>
-        <summary>What does a waste broker do?</summary>
-        <p>A waste broker manages trash service for you. We arrange haulers in each market, handle problems, check every bill and send you one invoice for all locations.</p>
+        <summary>What does a waste consultant do for a carrier?</summary>
+        <p>We manage your waste services for you. We arrange and negotiate with the haulers in each market, audit every invoice and keep the reporting in one place.</p>
       </details>
       <details>
         <summary>Do you only work with LTL carriers?</summary>
-        <p>LTL terminals are our specialty. We know how docks run, what they throw away and what service they actually need.</p>
+        <p>LTL trucking terminals are our specialty, and we serve businesses of all sizes.</p>
       </details>
       <details>
         <summary>Can you cover terminals in different states?</summary>
-        <p>Yes. IWC manages service coast to coast from our office in Booneville, Mississippi.</p>
+        <p>Yes. North, south, east or west, we have you covered from coast to coast, from our office in Booneville, Mississippi.</p>
       </details>
       <details>
-        <summary>Do we have to buy a compactor?</summary>
-        <p>No. Most clients rent, which includes install and service. Buying is also an option.</p>
+        <summary>Do we have to buy equipment?</summary>
+        <p>No. Most clients rent, which includes delivery and maintenance. Equipment is also available to buy.</p>
       </details>
       <details>
         <summary>How do we start?</summary>
-        <p>Send a recent invoice from each terminal. We review them for free and show you where pickups and cost can come down.</p>
+        <p>Complete the contact form or call us. If you would like IWC to evaluate your current waste costs, a team member will be in touch soon.</p>
       </details>
     </div>
   </div>
@@ -294,11 +286,11 @@
 <section class="cta" data-pattern="iwc/cta" aria-labelledby="cta-h">
   <img src="assets/cta-bg.jpg" alt="" loading="lazy">
   <div class="wrap">
-    <p class="eyebrow" data-anim="fade-up">Free savings review</p>
-    <h2 class="h2" id="cta-h" data-anim="fade-up">Find out what your terminals could save.</h2>
-    <p class="lede" data-anim="fade-up">Send a recent invoice. We will show you where pickups and cost can come down, at no charge.</p>
+    <p class="eyebrow" data-anim="fade-up">Want more info?</p>
+    <h2 class="h2" id="cta-h" data-anim="fade-up">Get started today.</h2>
+    <p class="lede" data-anim="fade-up">If you would like Integrated Waste Consulting to evaluate your current waste costs, complete the form and a team member will be in touch soon.</p>
     <div class="ctas" data-anim="fade-up">
-      <a class="btn" href="contact.html">Get a savings review</a>
+      <a class="btn" href="contact-us.html">Get a savings review</a>
       <a class="btn btn-line no-arrow" href="tel:+16624164888">Call 662-416-4888</a>
     </div>
   </div>
@@ -315,31 +307,34 @@
           <span class="brand-mark" aria-hidden="true">IWC</span>
           <span class="brand-name">IWC<small>Integrated Waste Consulting</small></span>
         </a>
-        <p class="one">Waste management and compactor rentals for LTL terminals, coast to coast. Family-run since 2013.</p>
+        <p class="one">Waste management, consulting and trash equipment rentals for LTL terminals, coast to coast. Family-owned since 2013.</p>
+        <p class="one tagline">The Good Kind of Trash Talk!</p>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h4>Corporate office</h4>
         <ul>
+          <li>607A Highway 4 West<br>Booneville, MS 38829</li>
           <li><a href="tel:+16624164888">662-416-4888</a></li>
           <li><a href="mailto:info@iwcwaste.com">info@iwcwaste.com</a></li>
-          <li>607A Highway 4 W<br>Booneville, MS 38829</li>
-          <li>Mon to Fri, 8am to 5pm</li>
+          <li>Monday to Friday, 8am to 5pm</li>
         </ul>
       </div>
       <div>
         <h4>Pages</h4>
         <ul>
-          <li><a href="ltl-waste-management.html">LTL Waste Management</a></li>
-          <li><a href="equipment.html">Equipment</a></li>
+          <li><a href="waste-management.html">Waste Management</a></li>
+          <li><a href="consulting.html">Consulting</a></li>
+          <li><a href="equipment-rentals.html">Equipment Rentals</a></li>
+          <li><a href="equipment-sales.html">Equipment Sales</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact-us.html">Contact</a></li>
         </ul>
       </div>
       <div>
-        <h4>Follow</h4>
+        <h4>Socials</h4>
         <ul>
+          <li><a href="https://www.facebook.com/profile.php?id=100095517035050" rel="noopener">Facebook</a></li>
           <li><a href="https://www.linkedin.com/company/integrated-waste-consulting" rel="noopener">LinkedIn</a></li>
-          <li><a href="index.html">Facebook</a></li>
         </ul>
       </div>
     </div>

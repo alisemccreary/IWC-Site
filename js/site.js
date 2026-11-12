@@ -90,6 +90,19 @@
     });
   }
 
+  /* 4a. Equipment dropdown: tap to open on touch, hover and focus handle the rest */
+  document.querySelectorAll('.has-sub').forEach(function (li) {
+    var btn = li.querySelector('.sub-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = li.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) { if (!li.contains(e.target)) { li.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
+    li.addEventListener('keydown', function (e) { if (e.key === 'Escape') { li.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); } });
+  });
+
   /* 4b. Loop clips: play only while on screen, never when motion is off */
   (function () {
     var clips = document.querySelectorAll('video[data-loop]');
