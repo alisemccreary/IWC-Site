@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v3 · Equipment page · Footage and photos from IWC's current site. Dashed boxes wait on IWC.</div>
+<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v3 · Equipment page · Footage from IWC's brand and walk-through videos by Luke Price. Dashed boxes wait on IWC.</div>
 
 <!-- Synced pattern: iwc/header -->
 <header class="nav" id="nav">
@@ -53,11 +53,11 @@
       <p class="lede">Compactors, roll-offs, balers and more, sized to each terminal. Mostly rented, also for sale. Delivered, installed and serviced by IWC.</p>
       <div class="ctas">
         <a class="btn" href="contact.html">Ask about equipment</a>
-        <a class="btn btn-line" href="#install">Watch an install</a>
+        <a class="btn btn-line" href="#install">Watch the walk-through</a>
       </div>
     </div>
     <div class="ph-img">
-      <img src="assets/equip-stationary.jpg" alt="A stationary compactor at a terminal dock">
+      <video data-loop muted loop playsinline preload="metadata" poster="assets/clip-loader-rolloff-poster.jpg" aria-label="A wheel loader setting an open top roll-off container"><source src="assets/clip-loader-rolloff.mp4" type="video/mp4"></video>
       <div class="ph-chip"><b>9 types</b><span>Rent or buy</span></div>
     </div>
   </div>
@@ -170,15 +170,14 @@
   <div class="wrap">
     <div class="head-split on-dark">
       <div>
-        <p class="eyebrow" data-anim="fade-up">See it installed</p>
-        <h2 class="h2" id="vid-h" data-anim="fade-up">From delivery to first haul.</h2>
+        <p class="eyebrow" data-anim="fade-up">See it in use</p>
+        <h2 class="h2" id="vid-h" data-anim="fade-up">A compactor at the dock, start to finish.</h2>
       </div>
-      <p class="lede" data-anim="fade-up">IWC delivers, sets and connects every unit. The live video will include captions.</p>
+      <p class="lede" data-anim="fade-up">Tyler walks through how an IWC compactor runs at a terminal: loading, reading the pressure gauge, and the five checks to make before you call for service. About 6 minutes.</p>
     </div>
-    <div class="video-slot ph" data-anim="fade-up">
-      <span class="ph-tag">Install video from Luke Price coming</span>
-      <video controls preload="none" playsinline poster="assets/step2-poster.jpg" aria-label="Compactor install video">
-        <source src="assets/step2.mp4" type="video/mp4">
+    <div class="video-slot" data-anim="fade-up">
+      <video controls preload="none" playsinline poster="assets/compactor-walkthrough-poster.jpg" aria-label="IWC compactor walk-through video, about 6 minutes">
+        <source src="assets/compactor-walkthrough-540.mp4" type="video/mp4">
       </video>
     </div>
   </div>

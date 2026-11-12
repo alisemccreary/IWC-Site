@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v3 · Home page · Footage and photos from IWC's current site. Dashed boxes wait on IWC.</div>
+<div class="mock-bar"><b>STUDIO JAM DRAFT</b> · IWC website v3 · Home page · Footage from IWC's brand and walk-through videos by Luke Price. Dashed boxes wait on IWC.</div>
 
 <!-- Synced pattern: iwc/header -->
 <header class="nav" id="nav">
@@ -47,11 +47,16 @@
 <!-- Pattern: iwc/hero -->
 <section class="hero" data-pattern="iwc/hero" aria-labelledby="h1">
   <div class="hero-media" id="heroMedia">
-    <!-- In WordPress this pattern takes a video file + poster. Waiting on Kelley's drone footage. -->
-    <div class="hero-ph" role="img" aria-label="Placeholder for IWC drone footage"></div>
+    <!-- In WordPress this pattern takes a video file + poster. Drone footage from IWC's brand video. -->
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-drone-poster.jpg" aria-hidden="true" tabindex="-1">
+      <source src="assets/hero-drone-mobile.mp4" type="video/mp4" media="(max-width: 700px)">
+      <source src="assets/hero-drone.mp4" type="video/mp4">
+    </video>
+    <img src="assets/hero-drone-poster.jpg" alt="">
     <div class="dim" id="heroDim"></div>
   </div>
-  <span class="ph-tag hero-ph-tag">Drone footage from Kelley coming</span>
+  <p class="sr-only">Background video: drone footage over an LTL terminal yard with rows of trailers at the dock.</p>
+  <button class="pause" id="pauseBtn" type="button" aria-label="Pause background video">❚❚</button>
 
   <div class="wrap hero-copy">
     <p class="hero-tag">LTL waste management · Est. 2013</p>
@@ -186,13 +191,13 @@
         <p>Send us your current invoices. We map service, pickups and cost at each location.</p>
       </li>
       <li class="step">
-        <div class="media"><img src="assets/step2-poster.jpg" alt="Pallets and cardboard loaded into a compactor hopper" loading="lazy"></div>
+        <div class="media"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-compactor-load-poster.jpg" aria-label="A forklift tipping pallets into a compactor charge box at a terminal dock"><source src="assets/clip-compactor-load.mp4" type="video/mp4"></video></div>
         <div class="n" aria-hidden="true">02</div>
         <h3>We place the right equipment</h3>
         <p>Compactors where volume is high, the right container everywhere else. We handle install.</p>
       </li>
       <li class="step">
-        <div class="media"><img src="assets/step3-poster.jpg" alt="An IWC team member reviewing a monthly waste report" loading="lazy"></div>
+        <div class="media"><video data-loop muted loop playsinline preload="metadata" poster="assets/clip-audit-poster.jpg" aria-label="A hauler invoice being reviewed on screen in the IWC office"><source src="assets/clip-audit.mp4" type="video/mp4"></video></div>
         <div class="n" aria-hidden="true">03</div>
         <h3>You get one invoice + report</h3>
         <p>Every terminal, every hauler, one bill. We audit it first and flag anything off.</p>

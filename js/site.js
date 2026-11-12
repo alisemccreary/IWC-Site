@@ -90,6 +90,21 @@
     });
   }
 
+  /* 4b. Loop clips: play only while on screen, never when motion is off */
+  (function () {
+    var clips = document.querySelectorAll('video[data-loop]');
+    if (!clips.length) return;
+    if (reduce || !('IntersectionObserver' in window)) return; /* poster frame stays */
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { rootMargin: '120px 0px' });
+    clips.forEach(function (v) { io.observe(v); });
+  })();
+
   /* 5. Savings slider. In WordPress, RENT and RATIO come from block settings. */
   if ($('calc')) (function () {
     var RENT = 379, RATIO = 4;
