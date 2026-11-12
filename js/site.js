@@ -3,7 +3,7 @@
  * Scroll reveals and counters come from motion.js (Anime.js 4.5.0).
  * Each part only runs if its markup is on the page.
  * 1. Header turns solid on scroll, mobile menu.
- * 2. Home H1 types once per visit (about 1.2s), newest letter green.
+ * 2. Home H1 types in every time Home opens (about 1.2s), newest letter green.
  * 3. Home video eases back and dims as it scrolls away. No pinning.
  * 4. Video pause button.
  * 5. Savings slider: pickups today vs with a compactor.
@@ -32,9 +32,8 @@
   /* 2. Typed H1 (home only) */
   var h1 = document.querySelector('h1[data-type]');
   if (h1) (function () {
-    var text = h1.textContent, seen = false;
-    try { seen = sessionStorage.getItem('iwc-typed') === '1'; } catch (e) {}
-    if (reduce || seen) { h1.classList.add('ready'); return; }
+    var text = h1.textContent;
+    if (reduce) { h1.classList.add('ready'); return; }
     h1.setAttribute('aria-label', text);
     h1.textContent = '';
     var spans = [];
@@ -54,7 +53,7 @@
     var step = 1200 / spans.length, i = 0, last = null;
     setTimeout(function tick() {
       if (last) last.classList.remove('new');
-      if (i >= spans.length) { h1.classList.remove('typing'); try { sessionStorage.setItem('iwc-typed', '1'); } catch (e) {} return; }
+      if (i >= spans.length) { h1.classList.remove('typing'); return; }
       last = spans[i++];
       last.classList.add('on', 'new');
       setTimeout(tick, step);
