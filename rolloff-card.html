@@ -2298,7 +2298,7 @@ if (EMBED) addEventListener("message", (event) => {
   const d = event.data;
   if (event.origin !== location.origin || !d || d.hl !== "rig") return;
   if (d.type === "move") { if (!paused) { quick = d.fast ? 0.1 : 0.26; move(d.x); } }
-  else if (d.type === "set") { if (!paused) { quick = d.fast ? 0.1 : 0.26; hand = true; take(); aim(d.t); } }
+  else if (d.type === "set") { if (!paused) { quick = d.fast ? 0.06 : 0.26; hand = true; take(); aim(d.t); } }
   else if (d.type === "wake") { if (!hand) { tourAt = 0; tour(); } }
   else if (d.type === "pause") { paused = true; hand = false; take(); aim(HOME); }
   else if (d.type === "play") { paused = false; idle(300); }
