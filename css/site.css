@@ -107,7 +107,7 @@ footer .brand .logo { height: 48px; }
 .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27,22,64,.9) 0%, rgba(27,22,64,.6) 48%, rgba(27,22,64,.2) 100%), linear-gradient(0deg, rgba(27,22,64,.85) 0%, rgba(27,22,64,0) 45%); }
 .dim { position: absolute; inset: 0; background: var(--ink); opacity: 0; }
 /* Hero truck: an isometric figure in an iframe (rolloff-card.html), drawn on the hero's own ink so it has no frame.
-   It takes no pointer; js/site.js forwards the pointer's position across the hero and the hook arm follows. */
+   It takes no pointer: the first scroll sets it to work (see "Stop scroll" below). */
 .hero-media-rig::after { background: linear-gradient(180deg, rgba(27,22,64,0) 0%, rgba(27,22,64,0) 62%, rgba(27,22,64,.55) 100%); }
 .hero-glow { position: absolute; inset: 0; background: radial-gradient(40% 46% at 72% 40%, rgba(101,172,65,.10), transparent 70%), radial-gradient(58% 64% at 70% 42%, rgba(46,36,96,.85), transparent 74%); }
 .hero-rig { position: absolute; right: -1.5%; top: 100px; width: min(48vw, 960px); aspect-ratio: 3 / 2; pointer-events: none; animation: rig-in .9s .25s both cubic-bezier(.33,1,.68,1); }
@@ -115,14 +115,18 @@ footer .brand .logo { height: 48px; }
 /* With the truck on the right the headline sets as two even lines, clear of the figure. */
 .hero-media-rig ~ .hero-copy h1 { max-width: 7.5em; }
 @keyframes rig-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-/* Touch: a finger dragged sideways across the truck swings the arm; up and down still scrolls the page. */
-.hero:has(.hero-rig) { touch-action: pan-y pinch-zoom; }
-.rig-hint { display: none; position: absolute; right: 14%; bottom: 6%; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 999px; background: rgba(27,22,64,.72); border: 1px solid rgba(255,255,255,.18); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: opacity .4s ease; }
-.rig-hint::before { content: ""; width: 14px; height: 8px; border-radius: 999px; border: 1.5px solid var(--green); box-shadow: 6px 0 0 -2.5px var(--green); animation: rig-nudge 1.6s ease-in-out infinite; }
-@keyframes rig-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
-@media (hover: none) and (pointer: coarse) { .rig-hint { display: inline-flex; } }
-.hero-rig.touched .rig-hint { opacity: 0; }
-html.motion-off .rig-hint { display: none; }
+/* Stop scroll. The first scroll down from the top is held: the page stays put while the truck picks the container
+   up at its own pace, then scrolling is handed back. js/site.js section 4 does the holding. .hero-hold is on <html>
+   only while the truck is working. With motion off nothing is held. */
+.hero-pin { margin-top: -72px; background: var(--ink); }
+.hero-pin > .hero { margin-top: 0; }
+html { scrollbar-gutter: stable; }
+html.hero-hold { overflow: hidden; }
+.scroll-cue { position: absolute; z-index: 3; right: var(--gutter); bottom: 34px; display: inline-flex; align-items: center; gap: 10px; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; transition: opacity .35s ease; pointer-events: none; }
+.scroll-cue::after { content: ""; width: 1.5px; height: 28px; border-radius: 2px; background: linear-gradient(var(--green), rgba(101,172,65,0)); transform-origin: top; animation: cue-drop 1.8s ease-in-out infinite; }
+@keyframes cue-drop { 0% { transform: scaleY(.2); opacity: 0; } 35% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1) translateY(10px); opacity: 0; } }
+.scroll-cue.gone { opacity: 0; }
+html.motion-off .scroll-cue { display: none; }
 .hero-copy { position: relative; z-index: 2; width: 100%; padding-top: 140px; padding-bottom: 56px; }
 .hero h1 { max-width: 1000px; font-family: var(--head); font-weight: 900; text-transform: uppercase; font-size: clamp(46px, 6.8vw, 92px); line-height: .92; letter-spacing: .005em; margin-top: 20px; }
 .hero h1.typing .ch { opacity: 0; }
@@ -433,7 +437,8 @@ footer a:hover { color: #fff; }
   .hero-copy { padding-top: 130px; padding-bottom: 40px; }
   /* Phones: the truck sits above the headline, bleeding a little off both sides. Capped so a tall tablet does not get a giant one. */
   .hero-rig { right: auto; left: max(-10%, calc(50% - 310px)); top: 66px; width: min(120%, 620px); }
-  .hero-media-rig + .sr-only + .pause + .hero-copy { padding-top: calc(min(80vw, 414px) + 58px); }
+  .hero-media-rig ~ .hero-copy { padding-top: calc(min(80vw, 414px) + 34px); }
+  .scroll-cue { top: 88px; bottom: auto; right: 16px; }
   .shade { background: linear-gradient(0deg, rgba(27,22,64,.96) 0%, rgba(27,22,64,.66) 55%, rgba(27,22,64,.45) 100%); }
   .pause { top: 84px; bottom: auto; }
   .hero-ph::after { display: none; }
@@ -469,8 +474,7 @@ footer a:hover { color: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .hero-media video { display: none; } .hero-media img { display: block; } .pause { display: none; }
   .hero-rig { animation: none; }
-  .rig-hint { display: none; }
-  .rig-hint::before { animation: none; }
+  .scroll-cue { display: none; }
   html { scroll-behavior: auto; }
   .card, .card:hover, .card .media img { transition: none; transform: none; }
 }
