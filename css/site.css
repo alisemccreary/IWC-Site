@@ -115,6 +115,14 @@ footer .brand .logo { height: 48px; }
 /* With the truck on the right the headline sets as two even lines, clear of the figure. */
 .hero-media-rig ~ .hero-copy h1 { max-width: 7.5em; }
 @keyframes rig-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+/* Touch: a finger dragged sideways across the truck swings the arm; up and down still scrolls the page. */
+.hero:has(.hero-rig) { touch-action: pan-y pinch-zoom; }
+.rig-hint { display: none; position: absolute; right: 14%; bottom: 6%; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 999px; background: rgba(27,22,64,.72); border: 1px solid rgba(255,255,255,.18); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: opacity .4s ease; }
+.rig-hint::before { content: ""; width: 14px; height: 8px; border-radius: 999px; border: 1.5px solid var(--green); box-shadow: 6px 0 0 -2.5px var(--green); animation: rig-nudge 1.6s ease-in-out infinite; }
+@keyframes rig-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
+@media (hover: none) and (pointer: coarse) { .rig-hint { display: inline-flex; } }
+.hero-rig.touched .rig-hint { opacity: 0; }
+html.motion-off .rig-hint { display: none; }
 .hero-copy { position: relative; z-index: 2; width: 100%; padding-top: 140px; padding-bottom: 56px; }
 .hero h1 { max-width: 1000px; font-family: var(--head); font-weight: 900; text-transform: uppercase; font-size: clamp(46px, 6.8vw, 92px); line-height: .92; letter-spacing: .005em; margin-top: 20px; }
 .hero h1.typing .ch { opacity: 0; }
@@ -461,6 +469,8 @@ footer a:hover { color: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .hero-media video { display: none; } .hero-media img { display: block; } .pause { display: none; }
   .hero-rig { animation: none; }
+  .rig-hint { display: none; }
+  .rig-hint::before { animation: none; }
   html { scroll-behavior: auto; }
   .card, .card:hover, .card .media img { transition: none; transform: none; }
 }
