@@ -79,13 +79,30 @@
   window.addEventListener('resize', easeBack);
   setSolid(); easeBack();
 
-  /* 4. Pause button */
-  var vid = $('heroVideo'), pauseBtn = $('pauseBtn');
-  if (vid && pauseBtn) {
-    if (reduce) { vid.removeAttribute('autoplay'); vid.pause(); }
-    pauseBtn.addEventListener('click', function () {
-      if (vid.paused) { vid.play(); pauseBtn.textContent = '❚❚'; pauseBtn.setAttribute('aria-label', 'Pause background video'); }
-      else { vid.pause(); pauseBtn.textContent = '▶'; pauseBtn.setAttribute('aria-label', 'Play background video'); }
+  /* 4. Hero truck (home). The picture is an isometric figure in an iframe (rolloff-card.html?tour=loop, built from
+     figures/rolloff) that tours on its own. The iframe takes no pointer: this forwards where the pointer is across
+     the hero as the hook arm's swing, 0 loaded to 1 set down, and hands back to the tour when the pointer leaves.
+     The pause button stops the tour; with motion off the truck holds its rest pose. */
+  var rig = $('heroRig'), rigFrame = rig && rig.querySelector('iframe'), pauseBtn = $('pauseBtn');
+  if (rigFrame && hero) {
+    var rigPaused = false;
+    var post = function (m) { if (rigFrame.contentWindow) rigFrame.contentWindow.postMessage(Object.assign({ hl: 'rig' }, m), location.origin); };
+    var settle = function () { if (reduce) post({ type: 'still' }); else if (rigPaused) post({ type: 'pause' }); };
+    rigFrame.addEventListener('load', settle);
+    settle();
+    if (!reduce) {
+      hero.addEventListener('pointermove', function (e) {
+        if (rigPaused || e.pointerType === 'touch') return;
+        var r = hero.getBoundingClientRect();
+        post({ type: 'set', t: Math.min(Math.max(((e.clientX - r.left) / r.width - 0.2) / 0.6, 0), 1) });
+      });
+      hero.addEventListener('pointerleave', function () { if (!rigPaused) post({ type: 'leave' }); });
+    }
+    if (pauseBtn) pauseBtn.addEventListener('click', function () {
+      rigPaused = !rigPaused;
+      post({ type: rigPaused ? 'pause' : 'play' });
+      pauseBtn.textContent = rigPaused ? '\u25B6' : '\u275A\u275A';
+      pauseBtn.setAttribute('aria-label', rigPaused ? 'Play truck animation' : 'Pause truck animation');
     });
   }
 

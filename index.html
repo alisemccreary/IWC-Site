@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/logo/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="preload" href="fonts/Strata.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/motion.css?v=202611121550">
-<link rel="stylesheet" href="css/site.css?v=202611121550">
+<link rel="stylesheet" href="css/motion.css?v=202611141447">
+<link rel="stylesheet" href="css/site.css?v=202611141447">
 <style>.brand .logo{height:40px;width:auto;display:block}footer .brand .logo{height:48px}</style>
-<script type="module" src="js/motion.js?v=202611121550"></script>
+<script type="module" src="js/motion.js?v=202611141447"></script>
 </head>
 <body>
 
@@ -55,22 +55,19 @@
 
 <!-- Pattern: iwc/hero -->
 <section class="hero" data-pattern="iwc/hero" aria-labelledby="h1">
-  <div class="hero-media" id="heroMedia">
-    <!-- In WordPress this pattern takes a video file + poster. Drone footage from IWC's brand video. -->
-    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-drone-poster.jpg" aria-hidden="true" tabindex="-1">
-      <source src="assets/hero-drone-mobile.mp4" type="video/mp4" media="(max-width: 700px)">
-      <source src="assets/hero-drone.mp4" type="video/mp4">
-    </video>
-    <img src="assets/hero-drone-poster.jpg" alt="">
+  <div class="hero-media hero-media-rig" id="heroMedia">
+    <!-- In WordPress this pattern takes the truck figure, built from figures/rolloff. The pointer swings the hook arm. -->
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-rig" id="heroRig"><iframe src="rolloff-card.html?tour=loop" title="" aria-hidden="true" tabindex="-1" loading="eager"></iframe></div>
     <div class="dim" id="heroDim"></div>
   </div>
-  <p class="sr-only">Background video: drone footage over an LTL terminal yard with rows of trailers at the dock.</p>
-  <button class="pause" id="pauseBtn" type="button" aria-label="Pause background video">❚❚</button>
+  <p class="sr-only">Animation: a hook-lift truck rolls an open-top container off its frame, sets it down on the ground behind and loads it again. Moving the pointer across the page swings the hook arm.</p>
+  <button class="pause" id="pauseBtn" type="button" aria-label="Pause truck animation">&#10074;&#10074;</button>
 
   <div class="wrap hero-copy">
     <p class="hero-tag">Waste management for LTL carriers · Est. 2013</p>
     <h1 id="h1" data-type>Stop wasting. Start saving.</h1>
-    <p class="sub" data-anim="fade-up" data-delay="1300">Integrated Waste Consulting manages waste services, audits invoices and rents compactors for LTL trucking terminals, coast to coast.</p>
+    <p class="hero-sub" data-anim="fade-up" data-delay="1300">Integrated Waste Consulting manages waste services, audits invoices and rents compactors for LTL trucking terminals, coast to coast.</p>
     <div class="ctas" data-anim="fade-up" data-delay="1400">
       <a class="btn" href="contact-us.html">Get a savings review</a>
       <a class="btn btn-line" href="waste-management.html">Manage your waste services</a>
@@ -412,6 +409,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=202611121550"></script>
+<script src="js/site.js?v=202611141447"></script>
 </body>
 </html>
