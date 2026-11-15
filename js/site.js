@@ -62,8 +62,6 @@
 
   /* 3. Ease-back on scroll (home, desktop and tablet only) */
   var hero = document.querySelector('.hero'), media = $('heroMedia'), dim = $('heroDim');
-
-
   var wide = window.matchMedia('(min-width: 768px)');
   var ticking = false;
   function easeBack() {
@@ -81,120 +79,50 @@
   window.addEventListener('resize', easeBack);
   setSolid(); easeBack();
 
-  /* 4. Hero truck (home): scroll works the truck, and the page waits.
-     The picture is an isometric figure in an iframe (rolloff-card.html, built from figures/rolloff). A full
-     container sits on the ground behind the truck. While the page is at its top, scroll input (wheel, a finger,
-     the keys) is not given to the page. It is given to the truck: `load` goes from 0, container on the ground,
-     to 1, container aboard, at ONE fixed speed for as long as the scrolling goes on, however hard or fast it is.
-     Stop scrolling and the truck stops. Scroll up and it runs back. The page itself cannot move until the
-     container is aboard and has settled; after that scrolling is the page's again. Back at the top, scrolling up
-     sets the container down. With motion off, or if the page opens already scrolled, nothing is taken. */
-  var rig = $('heroRig'), rigFrame = rig && rig.querySelector('iframe'), cue = $('scrollCue');
-  if (rigFrame && hero) (function () {
-    var TRAVEL_MS = 2000;  /* a full pick-up, at the truck's one speed */
-    var SETTLE_MS = 320;   /* the page stays put this long after the container is aboard */
-    var TOUCH_PACE = 1.5;  /* a finger gets through it a little quicker: a swipe is short, a trackpad glide is long */
-    var load = 0, dir = 0, pace = 1, activeUntil = 0, settledAt = 0, frame = 0, last = 0, sent = -1;
+  /* 4. Hero truck (home). The picture is an isometric figure in an iframe (rolloff-card.html?tour=loop, built from
+     figures/rolloff) that tours on its own. The iframe takes no pointer: this forwards where the pointer is across
+     the hero as the hook arm's swing, 0 loaded to 1 set down, and hands back to the tour when the pointer leaves.
+     On a phone, a finger dragged across the truck does the same and the hook follows it.
+     The pause button stops the tour; with motion off the truck holds its rest pose. */
+  var rig = $('heroRig'), rigFrame = rig && rig.querySelector('iframe'), pauseBtn = $('pauseBtn');
+  if (rigFrame && hero) {
+    var rigPaused = false;
     var post = function (m) { if (rigFrame.contentWindow) rigFrame.contentWindow.postMessage(Object.assign({ hl: 'rig' }, m), location.origin); };
-    var atTop = function () { return window.scrollY <= 2; };
-    var show = function () {
-      if (cue) cue.classList.toggle('gone', load > 0.02);
-      var t = 1 - load;
-      if (Math.abs(t - sent) < 0.0004) return;
-      sent = t;
-      post({ type: 'set', t: t, fast: true });
-    };
-    var tick = function (now) {
-      frame = 0;
-      var dt = last ? Math.min(now - last, 50) : 16;
-      last = now;
-      if (now < activeUntil) {
-        var before = load;
-        load = Math.min(Math.max(load + (dir * pace * dt) / TRAVEL_MS, 0), 1);
-        if (load === 1 && before < 1) settledAt = now + SETTLE_MS;
-        show();
-      }
-      if (now < activeUntil && ((dir > 0 && load < 1) || (dir < 0 && load > 0))) frame = requestAnimationFrame(tick);
-      else last = 0;
-    };
-    /* Is this scroll, down (1) or up (-1), the truck's to take? */
-    var mine = function (d) {
-      if (!atTop()) return false;
-      if (d > 0) return load < 1 || performance.now() < settledAt;
-      return load > 0;
-    };
-    /* Keep the truck moving that way for `tail` ms from now: each new piece of scroll input extends it. */
-    var drive = function (d, tail, quicker) {
-      var now = performance.now();
-      pace = quicker || 1;
-      if (d !== dir) { dir = d; activeUntil = 0; }
-      activeUntil = Math.max(activeUntil, now + tail);
-      if (!frame) frame = requestAnimationFrame(tick);
-    };
-    var settleNow = function () { load = 1; dir = 0; activeUntil = 0; show(); };
-    var ready = function () {
-      if (reduce) { post({ type: 'still' }); if (cue) cue.classList.add('gone'); return; }
-      if (!atTop()) settleNow(); /* opened part-way down: the truck is already loaded */
-      sent = -1;
-      show();
-    };
-    rigFrame.addEventListener('load', ready);
-    ready();
-    if (reduce) return;
-
-    window.addEventListener('wheel', function (e) {
-      if (e.ctrlKey) return; /* pinch zoom */
-      var d = e.deltaY > 0 ? 1 : e.deltaY < 0 ? -1 : 0;
-      if (!d || !mine(d)) return;
-      if (e.cancelable) e.preventDefault();
-      /* a trackpad sends a stream of small steps; a notched mouse wheel sends one big step, which earns a longer push */
-      var size = Math.abs(e.deltaY) * (e.deltaMode === 1 ? 32 : 1);
-      drive(d, Math.min(Math.max(size * 3.2, 120), 480));
-    }, { passive: false });
-
-    /* A finger: its direction works the truck while it moves, and a flick carries on briefly after it lifts. */
-    var touch = null;
-    window.addEventListener('touchstart', function (e) {
-      touch = e.touches.length === 1 ? { y: e.touches[0].clientY, at: e.timeStamp, speed: 0, d: 0, taken: null } : null;
-    }, { passive: true });
-    window.addEventListener('touchmove', function (e) {
-      if (!touch || e.touches.length !== 1) return;
-      var y = e.touches[0].clientY, dy = touch.y - y, dt = Math.max(e.timeStamp - touch.at, 1);
-      if (touch.taken === null) {
-        if (Math.abs(dy) < 4) return;
-        touch.taken = mine(dy > 0 ? 1 : -1); /* decided once, when the finger first clearly moves */
-      }
-      if (!touch.taken) return;
-      if (e.cancelable) e.preventDefault();
-      if (Math.abs(dy) >= 1) {
-        touch.d = dy > 0 ? 1 : -1;
-        touch.speed = Math.abs(dy) / dt;
-        touch.y = y; touch.at = e.timeStamp;
-        if (mine(touch.d)) drive(touch.d, 150, TOUCH_PACE);
-      }
-    }, { passive: false });
-    var lift = function () {
-      if (touch && touch.taken && touch.d && mine(touch.d)) drive(touch.d, Math.min(Math.max(touch.speed * 520, 0), 900), TOUCH_PACE);
-      touch = null;
-    };
-    window.addEventListener('touchend', lift, { passive: true });
-    window.addEventListener('touchcancel', lift, { passive: true });
-
-    window.addEventListener('keydown', function (e) {
-      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
-      var tag = e.target && e.target.tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (e.target && e.target.isContentEditable)) return;
-      var k = e.key;
-      var d = (k === 'ArrowDown' || k === 'PageDown' || k === 'End' || (k === ' ' && !e.shiftKey)) ? 1
-            : (k === 'ArrowUp' || k === 'PageUp' || k === 'Home' || (k === ' ' && e.shiftKey)) ? -1 : 0;
-      if (!d || !mine(d)) return;
-      e.preventDefault();
-      drive(d, 420);
+    var settle = function () { if (reduce) post({ type: 'still' }); else if (rigPaused) post({ type: 'pause' }); };
+    rigFrame.addEventListener('load', settle);
+    settle();
+    if (!reduce) {
+      /* Mouse: its x across the whole hero is the swing. */
+      hero.addEventListener('pointermove', function (e) {
+        if (rigPaused) return;
+        if (e.pointerType === 'touch') { if (e.pointerId === finger) post({ type: 'move', x: shareOf(e), fast: true }); return; }
+        var r = hero.getBoundingClientRect();
+        post({ type: 'set', t: Math.min(Math.max(((e.clientX - r.left) / r.width - 0.2) / 0.6, 0), 1) });
+      });
+      hero.addEventListener('pointerleave', function (e) { if (!rigPaused && e.pointerType !== 'touch') post({ type: 'leave' }); });
+      /* Finger: a touch that starts on the truck takes hold of the hook, which then follows the finger's x.
+         The hero allows vertical panning only, so a sideways drag comes here and an up or down drag scrolls
+         the page (the browser then cancels the touch and the truck goes back to its tour). */
+      var finger = null;
+      var shareOf = function (e) { var r = rig.getBoundingClientRect(); return (e.clientX - r.left) / r.width; };
+      var onTruck = function (e) { var r = rig.getBoundingClientRect(); return e.clientY >= r.top && e.clientY <= r.bottom && e.clientX >= r.left && e.clientX <= r.right; };
+      hero.addEventListener('pointerdown', function (e) {
+        if (rigPaused || e.pointerType !== 'touch' || finger !== null || !onTruck(e) || e.target.closest('a, button')) return;
+        finger = e.pointerId;
+        rig.classList.add('touched');
+        post({ type: 'move', x: shareOf(e), fast: true });
+      });
+      var lift = function (e) { if (e.pointerId === finger) { finger = null; post({ type: 'leave' }); } };
+      hero.addEventListener('pointerup', lift);
+      hero.addEventListener('pointercancel', lift);
+    }
+    if (pauseBtn) pauseBtn.addEventListener('click', function () {
+      rigPaused = !rigPaused;
+      post({ type: rigPaused ? 'pause' : 'play' });
+      pauseBtn.textContent = rigPaused ? '\u25B6' : '\u275A\u275A';
+      pauseBtn.setAttribute('aria-label', rigPaused ? 'Play truck animation' : 'Pause truck animation');
     });
-
-    /* The page moved some other way (a scrollbar drag, a link to a section, focus moving down): the truck is loaded. */
-    window.addEventListener('scroll', function () { if (!atTop() && load < 1) settleNow(); }, { passive: true });
-  })();
+  }
 
   /* 4a. Equipment dropdown: tap to open on touch, hover and focus handle the rest */
   document.querySelectorAll('.has-sub').forEach(function (li) {
