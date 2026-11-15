@@ -107,7 +107,7 @@ footer .brand .logo { height: 48px; }
 .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(27,22,64,.9) 0%, rgba(27,22,64,.6) 48%, rgba(27,22,64,.2) 100%), linear-gradient(0deg, rgba(27,22,64,.85) 0%, rgba(27,22,64,0) 45%); }
 .dim { position: absolute; inset: 0; background: var(--ink); opacity: 0; }
 /* Hero truck: an isometric figure in an iframe (rolloff-card.html), drawn on the hero's own ink so it has no frame.
-   It takes no pointer: scrolling moves it (see "Scroll moves the truck" below). */
+   It takes no pointer: scrolling works it (see "Scroll works the truck" below). */
 .hero-media-rig::after { background: linear-gradient(180deg, rgba(27,22,64,0) 0%, rgba(27,22,64,0) 62%, rgba(27,22,64,.55) 100%); }
 .hero-glow { position: absolute; inset: 0; background: radial-gradient(40% 46% at 72% 40%, rgba(101,172,65,.10), transparent 70%), radial-gradient(58% 64% at 70% 42%, rgba(46,36,96,.85), transparent 74%); }
 .hero-rig { position: absolute; right: -1.5%; top: 100px; width: min(48vw, 960px); aspect-ratio: 3 / 2; pointer-events: none; animation: rig-in .9s .25s both cubic-bezier(.33,1,.68,1); }
@@ -115,14 +115,12 @@ footer .brand .logo { height: 48px; }
 /* With the truck on the right the headline sets as two even lines, clear of the figure. */
 .hero-media-rig ~ .hero-copy h1 { max-width: 7.5em; }
 @keyframes rig-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-/* Scroll moves the truck. The hero holds in place for --pin of scrolling, and how far through that stretch the
-   page is sets how far the truck's arm has swung: scroll down and it picks the container up, scroll back up and it
-   sets it down, at the scroll's own rate. Nothing plays by itself. js/site.js section 4 reads the scroll.
-   The stretch is a block after the hero, not padding: a sticky box only travels inside its parent's content box. */
-.hero-pin { --pin: 90vh; margin-top: -72px; background: var(--ink); }
-.hero-pin::after { content: ""; display: block; height: var(--pin); }
-.hero-pin > .hero { position: sticky; top: 0; margin-top: 0; }
-html.motion-off .hero-pin::after { display: none; }
+/* Scroll works the truck, and the page waits. At the top of the page, scrolling does not move the page: it is fed
+   to the truck, which picks the container up at one fixed speed however hard the scroll is. Only when the container
+   is aboard does the page start to scroll. Scrolling up at the top runs it back. js/site.js section 4 does this;
+   there is no extra page height and nothing here is sticky. With motion off, scrolling is never taken. */
+.hero-pin { margin-top: -72px; background: var(--ink); }
+.hero-pin > .hero { margin-top: 0; }
 .scroll-cue { position: absolute; z-index: 3; right: var(--gutter); bottom: 34px; display: inline-flex; align-items: center; gap: 10px; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; opacity: .85; transition: opacity .35s ease; pointer-events: none; }
 .scroll-cue::after { content: ""; width: 1.5px; height: 28px; border-radius: 2px; background: linear-gradient(var(--green), rgba(101,172,65,0)); transform-origin: top; animation: cue-drop 1.8s ease-in-out infinite; }
 @keyframes cue-drop { 0% { transform: scaleY(.2); opacity: 0; } 35% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1) translateY(10px); opacity: 0; } }
@@ -439,7 +437,6 @@ footer a:hover { color: #fff; }
   /* Phones: the truck sits above the headline, bleeding a little off both sides. Capped so a tall tablet does not get a giant one. */
   .hero-rig { right: auto; left: max(-10%, calc(50% - 310px)); top: 66px; width: min(120%, 620px); }
   .hero-media-rig ~ .hero-copy { padding-top: calc(min(80vw, 414px) + 34px); }
-  .hero-pin { --pin: 75vh; }
   .scroll-cue { top: 88px; bottom: auto; right: 16px; }
   .shade { background: linear-gradient(0deg, rgba(27,22,64,.96) 0%, rgba(27,22,64,.66) 55%, rgba(27,22,64,.45) 100%); }
   .pause { top: 84px; bottom: auto; }
@@ -476,7 +473,6 @@ footer a:hover { color: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .hero-media video { display: none; } .hero-media img { display: block; } .pause { display: none; }
   .hero-rig { animation: none; }
-  .hero-pin::after { display: none; }
   .scroll-cue { display: none; }
   html { scroll-behavior: auto; }
   .card, .card:hover, .card .media img { transition: none; transform: none; }
