@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/logo/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="preload" href="fonts/Strata.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/motion.css?v=202611181443">
-<link rel="stylesheet" href="css/site.css?v=202611181443">
+<link rel="stylesheet" href="css/motion.css?v=202611181452">
+<link rel="stylesheet" href="css/site.css?v=202611181452">
 <style>.brand .logo{height:40px;width:auto;display:block}footer .brand .logo{height:48px}</style>
-<script type="module" src="js/motion.js?v=202611181443"></script>
+<script type="module" src="js/motion.js?v=202611181452"></script>
 </head>
 <body>
 
@@ -65,8 +65,11 @@
         <a class="btn btn-line" href="#savings">Try the calculator</a>
       </div>
     </div>
-    <div class="ph-img">
-      <video data-loop muted loop playsinline preload="metadata" poster="assets/hero-drone-poster.jpg" aria-label="Drone footage over an LTL terminal yard with trailers lined up at the dock"><source src="assets/hero-drone.mp4" type="video/mp4"></video>
+    <div class="ph-img ph-rig">
+      <!-- Same truck figure as the home hero (rolloff-card.html). The pointer across this hero swings the hook arm. -->
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-rig" id="heroRig"><iframe src="rolloff-card.html?tour=loop&amp;v=9" title="" aria-hidden="true" tabindex="-1" loading="eager"></iframe><span class="rig-hint" aria-hidden="true">Drag the truck</span></div>
+      <p class="sr-only">Animation: a hook-lift truck picks up an open-top container full of trash bags and rolls it up onto its frame. Moving the pointer across this section, or dragging a finger across the truck, swings the hook arm.</p>
       <div class="ph-chip"><b>1 contact</b><span>For every terminal</span></div>
     </div>
   </div>
@@ -345,6 +348,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=202611181443"></script>
+<script src="js/site.js?v=202611181452"></script>
 </body>
 </html>

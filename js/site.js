@@ -85,7 +85,9 @@
      On a phone, a finger dragged across the truck does the same and the hook follows it.
      The pause button stops the tour; with motion off the truck holds its rest pose. */
   var rig = $('heroRig'), rigFrame = rig && rig.querySelector('iframe'), pauseBtn = $('pauseBtn');
-  if (rigFrame && hero) {
+  /* The truck also sits in the Waste Management page hero; there the whole page hero is the pointer area. */
+  var rigArea = hero || (rig && rig.closest('section'));
+  if (rigFrame && rigArea) {
     var rigPaused = false;
     var post = function (m) { if (rigFrame.contentWindow) rigFrame.contentWindow.postMessage(Object.assign({ hl: 'rig' }, m), location.origin); };
     var settle = function () { if (reduce) post({ type: 'still' }); else if (rigPaused) post({ type: 'pause' }); };
@@ -93,28 +95,28 @@
     settle();
     if (!reduce) {
       /* Mouse: its x across the whole hero is the swing. */
-      hero.addEventListener('pointermove', function (e) {
+      rigArea.addEventListener('pointermove', function (e) {
         if (rigPaused) return;
         if (e.pointerType === 'touch') { if (e.pointerId === finger) post({ type: 'move', x: shareOf(e), fast: true }); return; }
-        var r = hero.getBoundingClientRect();
+        var r = rigArea.getBoundingClientRect();
         post({ type: 'set', t: Math.min(Math.max(((e.clientX - r.left) / r.width - 0.2) / 0.6, 0), 1) });
       });
-      hero.addEventListener('pointerleave', function (e) { if (!rigPaused && e.pointerType !== 'touch') post({ type: 'leave' }); });
+      rigArea.addEventListener('pointerleave', function (e) { if (!rigPaused && e.pointerType !== 'touch') post({ type: 'leave' }); });
       /* Finger: a touch that starts on the truck takes hold of the hook, which then follows the finger's x.
          The hero allows vertical panning only, so a sideways drag comes here and an up or down drag scrolls
          the page (the browser then cancels the touch and the truck goes back to its tour). */
       var finger = null;
       var shareOf = function (e) { var r = rig.getBoundingClientRect(); return (e.clientX - r.left) / r.width; };
       var onTruck = function (e) { var r = rig.getBoundingClientRect(); return e.clientY >= r.top && e.clientY <= r.bottom && e.clientX >= r.left && e.clientX <= r.right; };
-      hero.addEventListener('pointerdown', function (e) {
+      rigArea.addEventListener('pointerdown', function (e) {
         if (rigPaused || e.pointerType !== 'touch' || finger !== null || !onTruck(e) || e.target.closest('a, button')) return;
         finger = e.pointerId;
         rig.classList.add('touched');
         post({ type: 'move', x: shareOf(e), fast: true });
       });
       var lift = function (e) { if (e.pointerId === finger) { finger = null; post({ type: 'leave' }); } };
-      hero.addEventListener('pointerup', lift);
-      hero.addEventListener('pointercancel', lift);
+      rigArea.addEventListener('pointerup', lift);
+      rigArea.addEventListener('pointercancel', lift);
     }
     if (pauseBtn) pauseBtn.addEventListener('click', function () {
       rigPaused = !rigPaused;

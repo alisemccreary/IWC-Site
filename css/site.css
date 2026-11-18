@@ -116,7 +116,14 @@ footer .brand .logo { height: 48px; }
 .hero-media-rig ~ .hero-copy h1 { max-width: 7.5em; }
 @keyframes rig-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 /* Touch: a finger dragged sideways across the truck swings the arm; up and down still scrolls the page. */
-.hero:has(.hero-rig) { touch-action: pan-y pinch-zoom; }
+.hero:has(.hero-rig), .page-hero:has(.hero-rig) { touch-action: pan-y pinch-zoom; }
+/* Truck inside an inner-page hero box (Waste Management). Fills the box; the figure scales to fit. */
+.ph-rig { background: radial-gradient(70% 70% at 50% 45%, #2E2460, var(--ink)); border: 1px solid var(--line-ink); border-bottom: 0; }
+.ph-rig::after { display: none; }
+.ph-rig .hero-rig { left: -11%; right: -11%; top: 0; bottom: 8%; width: auto; aspect-ratio: auto; }
+.ph-rig .rig-hint { right: auto; left: 50%; bottom: 4%; translate: -50% 0; }
+.ph-rig .ph-chip { left: auto; right: 16px; bottom: 16px; }
+@media (max-width: 700px) { .ph-rig .ph-chip { display: none; } }
 .rig-hint { display: none; position: absolute; right: 14%; bottom: 6%; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 999px; background: rgba(27,22,64,.72); border: 1px solid rgba(255,255,255,.18); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: opacity .4s ease; }
 .rig-hint::before { content: ""; width: 14px; height: 8px; border-radius: 999px; border: 1.5px solid var(--green); box-shadow: 6px 0 0 -2.5px var(--green); animation: rig-nudge 1.6s ease-in-out infinite; }
 @keyframes rig-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
