@@ -126,6 +126,22 @@
     });
   }
 
+  /* 4r. Rope truck version (rope-truck/): the truck is the <roll-off-truck> web component in js/roll-off-truck.js,
+     loaded after this file. It handles its own pointer, finger and keys: a grip with a rope follows the pointer to
+     the hook, and a click (or lifting a finger) once the container is aboard sends the truck off to haul it away.
+     This only passes on motion off and drives the pause button. */
+  var ropeTruck = document.querySelector('roll-off-truck'), ropePause = $('pauseBtn');
+  if (ropeTruck) {
+    if (reduce) ropeTruck.setAttribute('motion', 'off');   /* read when the component starts */
+    if (ropePause) ropePause.addEventListener('click', function () {
+      var paused = ropePause.getAttribute('aria-pressed') !== 'true';
+      if (ropeTruck._api) ropeTruck._api.send({ type: paused ? 'pause' : 'play' });
+      ropePause.setAttribute('aria-pressed', String(paused));
+      ropePause.textContent = paused ? '\u25B6' : '\u275A\u275A';
+      ropePause.setAttribute('aria-label', paused ? 'Play truck animation' : 'Pause truck animation');
+    });
+  }
+
   /* 4a. Equipment dropdown: tap to open on touch, hover and focus handle the rest */
   document.querySelectorAll('.has-sub').forEach(function (li) {
     var btn = li.querySelector('.sub-btn');

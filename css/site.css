@@ -130,6 +130,15 @@ footer .brand .logo { height: 48px; }
 @media (hover: none) and (pointer: coarse) { .rig-hint { display: inline-flex; } }
 .hero-rig.touched .rig-hint { opacity: 0; }
 html.motion-off .rig-hint { display: none; }
+/* Rope truck version (rope-truck/): the truck is the <roll-off-truck> web component and takes the pointer itself,
+   so it sits above the shade, and the text column over it lets the pointer through except on its own content. */
+.hero-rig:has(roll-off-truck) { z-index: 2; pointer-events: auto; }
+.hero-rig roll-off-truck { width: 100%; }
+.hero-media-rig:has(roll-off-truck) .dim { pointer-events: none; }
+.hero:has(roll-off-truck), .page-hero:has(roll-off-truck) { touch-action: auto; }
+.hero:has(roll-off-truck) .hero-copy { pointer-events: none; }
+.hero:has(roll-off-truck) .hero-copy :is(a, button, input, p, h1) { pointer-events: auto; }
+.ph-rig .hero-rig:has(roll-off-truck) { display: grid; align-items: center; }
 .hero-copy { position: relative; z-index: 2; width: 100%; padding-top: 140px; padding-bottom: 56px; }
 .hero h1 { max-width: 1000px; font-family: var(--head); font-weight: 900; text-transform: uppercase; font-size: clamp(46px, 6.8vw, 92px); line-height: .92; letter-spacing: .005em; margin-top: 20px; }
 .hero h1.typing .ch { opacity: 0; }
@@ -440,7 +449,7 @@ footer a:hover { color: #fff; }
   .hero-copy { padding-top: 130px; padding-bottom: 40px; }
   /* Phones: the truck sits above the headline, bleeding a little off both sides. Capped so a tall tablet does not get a giant one. */
   .hero-rig { right: auto; left: max(-10%, calc(50% - 310px)); top: 66px; width: min(120%, 620px); }
-  .hero-media-rig + .sr-only + .pause + .hero-copy { padding-top: calc(min(80vw, 414px) + 58px); }
+  .hero-media-rig + .sr-only + .pause + .hero-copy, .hero-media-rig + .pause + .hero-copy { padding-top: calc(min(80vw, 414px) + 58px); }
   .shade { background: linear-gradient(0deg, rgba(27,22,64,.96) 0%, rgba(27,22,64,.66) 55%, rgba(27,22,64,.45) 100%); }
   .pause { top: 84px; bottom: auto; }
   .hero-ph::after { display: none; }
